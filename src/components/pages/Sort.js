@@ -1,7 +1,7 @@
 function Sort() {
   return (
     <>
-      <main>
+      <main className="bg-gray-600 flex justify-center h-[90vh]">
         <div>Startowa strona .</div>
       </main>
     </>
