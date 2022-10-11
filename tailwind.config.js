@@ -6,12 +6,5 @@ module.exports = {
       backgroundColor: ['active']
     }
   },
-  theme: {
-    extend: {
-      colors: {
-   
-      }
-    }
-  },
   plugins: []
 };
