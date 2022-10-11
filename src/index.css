@@ -4,11 +4,5 @@
 
 @layer base {
   :root {
-    --color-amber: 243 166 1;
-    --color-lazur: 7 245 253;
-    --color-black: 11 12 12;
-    --color-white: 245 248 248;
-    --color-grey: 32 32 32;
-    /* ... */
   }
 }
