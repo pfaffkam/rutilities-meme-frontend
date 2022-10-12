@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Footer() {
   return (
-    <footer className=" absolute right-0 bottom-0 left-0 h-auto pt-4 bg-gray-800  flex justify-center">
+    <footer className="absolute right-0 bottom-0 left-0 h-auto pt-4 bg-gray-800 flex justify-center">
       <FooterIcon icon={faYoutube} reference={'https://youtube.com/'} txt={'Youtube'} value=" text-3xl hover:text-[#ff0000]" />
       <FooterIcon icon={faTwitter} reference={'https://twitter.com/'} txt={'Twitter'} value="text-3xl hover:text-[#38bdf8]" />
       <FooterIcon icon={faGithub} reference={'https://github.com/'} txt={'GitHub'} value="text-3xl hover:text-[#f3a601]" />
