@@ -23,7 +23,7 @@ function Header() {
 
 function Button({ text, reference, icon }) {
   return (
-    <button className="md:p-3  mr-10  active:bg-gray-500 focus:outline-none focus:[bg,text] focus:bg-gray-900 focus:text-amber-700 hover:bg-gray-900  text-amber-700 hover:text-amber-700 rounded-md">
+    <button className="md:p-3 mr-10 active:bg-gray-500 focus:outline-none focus:[bg,text] focus:bg-gray-900 focus:text-amber-700 hover:bg-gray-900 text-amber-700 hover:text-amber-700 rounded-md">
       <Link to={reference}>
         <FontAwesomeIcon className="mr-5" icon={icon} />
         {text}
