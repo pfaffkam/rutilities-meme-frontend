@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Header from './Header';
-import { BrowserRouter as Router, Routes,} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sort from './Sort';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="sort" element={<Sort />} />
         </Routes>
       </Router>
     </>

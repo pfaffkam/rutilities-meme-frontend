@@ -3,6 +3,7 @@ import logo from '../assets/logo.png';
 import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
+import Meme from '../api/Meme';
 
 function Header() {
   return (
@@ -11,9 +12,9 @@ function Header() {
         <Link to={'home'}>
           <img className="absolute left-0 top-0 h-16 w-32" src={logo} alt="Logo" />
         </Link>
-        <Button text="Generator" reference="generate" icon={faPlusSquare} />
+        {/*<Button text="Generator" reference="generate" icon={faPlusSquare} />
         <Button text="Szukaj" reference="search" icon={faSearch} />
-        <Button text="Losowe" reference="random" icon={faRandom} />
+        <Button text="Losowe" reference="random" icon={faRandom} />*/}
         <Button text="Sortowanie memów" reference="sort" icon={faSortAmountAsc} />
       </header>
       <Footer />

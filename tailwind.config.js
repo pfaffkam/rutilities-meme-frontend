@@ -3,7 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   variants: {
     extend: {
-      backgroundColor: ['active']
+      backgroundColor: ['active', 'hover', 'focus', 'active']
     }
   },
   plugins: []
