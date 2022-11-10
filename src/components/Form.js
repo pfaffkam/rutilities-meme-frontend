@@ -81,23 +81,5 @@ const Form = () => {
 
 let patchMeme;
 
-// patchMeme['category'] = { id: categoryId };
-// patchMeme['type'] = { id: typeId };
-
-// fetch('https://api.reykez.pl/api/memes/memes/1', {
-//   method: 'PATCH',
-//   crossDomain: true,
-//   headers: {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json',
-//     _method: 'PATCH'
-//   },
-//   body: JSON.stringify({ patchMeme })
-// })
-//   .then((res) => {
-//     return res.json();
-//   })
-//   .then((data) => console.log(data))
-//   .catch((error) => console.log(error));
 
 export default Form;

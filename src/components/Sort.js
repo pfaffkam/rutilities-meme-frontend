@@ -34,7 +34,7 @@ function Sort({ random }) {
   }, []);
 
   function validateFormData(formDataObject) {
-    console.log(formDataObject);
+ 
     if (formDataObject.isNsfw == null) return false;
     if (formDataObject.isUncropped == null) return false;
     if (formDataObject.isMeme == null) return false;
@@ -49,14 +49,7 @@ function Sort({ random }) {
 
     let isValidated = validateFormData(formObject);
     if (!isValidated) {
-      console.log('nie jest to zwalidowane');
     }
-
-    console.log(formObject.isNsfw);
-    console.log(formObject.isUncropped);
-    console.log(formObject.isMeme);
-
-    console.log('Kliknięto sortuj');
   }
 
   function BooleanChooseField({ fieldName, idValueDictionary }) {

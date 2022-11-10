@@ -3,7 +3,6 @@ import logo from '../assets/logo.png';
 import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
-import Meme from '../api/Meme';
 
 function Header() {
   return (
