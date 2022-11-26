@@ -2,7 +2,7 @@ import { useEffect, useState, React } from 'react';
 import Meme from '../api/Meme';
 import Form from './Form';
 
-function Sort({ random }) {
+function Sort() {
   const [category, setCategory] = useState([]);
   useEffect(() => {
     fetch('https://api.reykez.pl/api/memes/meme-categories', {
@@ -33,23 +33,38 @@ function Sort({ random }) {
       });
   }, []);
 
-  function validateFormData(formDataObject) {
- 
-    if (formDataObject.isNsfw == null) return false;
-    if (formDataObject.isUncropped == null) return false;
-    if (formDataObject.isMeme == null) return false;
-    return true;
-  }
+  const [formErrors, setFormErrors] = useState([]);
+
+  const formFields = ['category', 'type', 'isNsfw', 'isUncropped', 'isMeme'];
+  const [form, setForm] = useState({
+    category: '',
+    type: '',
+    isNsfw: '',
+    isUncropped: '',
+    isMeme: ''
+  });
+  
+  useEffect(() => {
+    let errors = {};
+
+    formFields.forEach(function (key) {
+      let value = form[key];
+
+      if (value === undefined) {
+        errors[key] = true;
+      } else {
+        errors[key] = false;
+      }
+    });
+    setFormErrors(errors);
+  }, [form]);
 
   function handleSubmit(event) {
     event.preventDefault();
-
     let data = new FormData(event.target);
-    let formObject = Object.fromEntries(data.entries());
-
-    let isValidated = validateFormData(formObject);
-    if (!isValidated) {
-    }
+    let formData = Object.fromEntries(data.entries());
+    setForm(formData);
+    return;
   }
 
   function BooleanChooseField({ fieldName, idValueDictionary }) {
@@ -58,9 +73,10 @@ function Sort({ random }) {
         {idValueDictionary.map((option) => {
           return (
             <li>
-              <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white"></h3>
-              <input type="radio" className="hidden peer" name={fieldName} id={option.id} autoComplete="off" value={option.value} required="" />
-              <label htmlFor={option.id} className="inline-flex justify-between items-center p-2 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-900 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <p className="mb-5"></p>
+              <input type="radio" className="hidden peer" name={fieldName} id={option.id} value={option.value} />
+              <label htmlFor={option.id} className="invalid:border-red-500 inline-flex justify-between items-center p-2 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-900 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <p className="text-red-300">{formErrors[fieldName] ? 'ERROR' : ''}</p>
                 <div className="block">
                   <div className="w-full text-lg font-semibold">Kategoria</div>
                   <div className="w-full">{option.text}</div>
@@ -76,13 +92,14 @@ function Sort({ random }) {
   return (
     <>
       <main className="bg-gray-600 flex justify-center h-[90vh]">
-        <a href="#" className="flex flex-col items-center  rounded-lg border shadow-md md:flex-row md:max-w-auto border-gray-700 bg-gray-700 ">
-          <Meme random={random} />
+        <a href="#" className="flex flex-col items-center rounded-lg border shadow-md md:flex-row md:max-w-auto border-gray-700 bg-gray-700">
+          <Meme />
           <div className="flex flex-col justify-between pb-28 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-amber-700 ">Sortowanie memów</h5>
-            <div className="mb-4">
-              <form name="Form" action="patch" onSubmit={handleSubmit}>
-                <select name="category" value={Form.values} className="flex bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full" defaultValue="Kategoria">
+            <div className="mb-3">
+              <form name="Form" action="patch" onSubmit={handleSubmit} noValidate>
+                <p className="text-red-300">{formErrors['category'] ? 'ERROR' : ''}</p>
+                <select name={category} className="flex bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full" defaultValue="Kategoria">
                   <option disabled>Kategoria</option>
                   {category.map((item, i) => {
                     return (
@@ -92,7 +109,8 @@ function Sort({ random }) {
                     );
                   })}
                 </select>
-                <select name="type" value={Form.values} className="flex mt-3 mb-6 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full" defaultValue="Typ">
+                <p className="text-red-300">{formErrors['type'] ? 'ERROR' : ''}</p>
+                <select name={type} value={Form.values} className="flex mt-3 mb-6 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full" defaultValue="Typ">
                   <option disabled>Typ</option>
                   {type.map((item, i) => {
                     return (

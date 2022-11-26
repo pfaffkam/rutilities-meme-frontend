@@ -16,7 +16,7 @@ function Header() {
         <Button text="Losowe" reference="random" icon={faRandom} />*/}
         <Button text="Sortowanie memów" reference="sort" icon={faSortAmountAsc} />
       </header>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

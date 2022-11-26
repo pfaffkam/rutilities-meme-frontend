@@ -3,8 +3,8 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   variants: {
     extend: {
-      backgroundColor: ['active', 'hover', 'focus', 'active']
+      backgroundColor: ['active', 'hover', 'focus', 'active', 'invalid']
     }
   },
-  plugins: []
+  plugins: [require('tailwindcss-invalid-variant-plugin')]
 };
