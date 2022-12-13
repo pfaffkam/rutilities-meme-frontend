@@ -33,7 +33,7 @@ function Sort() {
       });
   }, []);
 
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState({});
 
   const formFields = ['category', 'type', 'isNsfw', 'isUncropped', 'isMeme'];
   const [form, setForm] = useState({
@@ -43,7 +43,7 @@ function Sort() {
     isUncropped: '',
     isMeme: ''
   });
-  
+
   useEffect(() => {
     let errors = {};
 
