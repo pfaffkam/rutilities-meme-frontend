@@ -7,14 +7,14 @@ import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/
 function Header() {
   return (
     <>
-      <header className="flex items-center justify-end flex-nowrap bg-gray-800 p-2">
+      <header className="flex items-center justify-end flex-nowrap bg-gray-800 p-5 md:p-2">
         <Link to={'home'}>
           <img className="absolute left-0 top-0 h-16 w-32" src={logo} alt="Logo" />
         </Link>
         {/*<Button text="Generator" reference="generate" icon={faPlusSquare} />
         <Button text="Szukaj" reference="search" icon={faSearch} />
         <Button text="Losowe" reference="random" icon={faRandom} />*/}
-        <Button text="Sortowanie memów" reference="sort" icon={faSortAmountAsc} />
+        <Button text="Sortowanie memów" className="p-12" reference="sort" icon={faSortAmountAsc} />
       </header>
       {/* <Footer /> */}
     </>
