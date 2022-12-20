@@ -2,12 +2,16 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   variants: {
+    width: ['responsive', 'hover', 'focus'],
     extend: {
       backgroundColor: ['active', 'hover', 'focus', 'invalid']
     }
   },
   plugins: [require('tailwindcss-invalid-variant-plugin')],
   theme: {
+    minWidth: {
+      400: '400px'
+    },
     screens: {
       sm: '640px',
       // => @media (min-width: 640px) { ... }

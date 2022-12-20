@@ -15,7 +15,7 @@ function FooterIcon({ icon, reference, txt, value }) {
   return (
     <button>
       <div className={value}>
-        <a className="w-max mr-20 flex-col-reverse" target="_blank" href={reference}>
+        <a className="w-max mr-20 flex-col-reverse" target="_blank" href={reference} rel='noreferrer'>
           <FontAwesomeIcon icon={icon} />
           <p className="text-sm hover:text-gray-400">{txt}</p>
         </a>
