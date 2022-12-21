@@ -3,7 +3,7 @@ import Category from './Category';
 import Type from './Type';
 import BooleanChooseField from './BooleanChooseField';
 
-function Form({  setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange, categories, type, formErrors, setFormErrors }) {
+function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange, categories, type, formErrors, setFormErrors }) {
   const categorySelectRef = useRef();
   const typeSelectRef = useRef();
   useEffect(() => {
@@ -29,20 +29,22 @@ function Form({  setFormSubmitted, formSubmitted, form, setForm, handleFormSubmi
     typeSelectRef.current.value = 'Type';
   }, [formSubmitted]);
 
-  function Button() {
+  function SubmitButton() {
     const hasEmptyFields = Object.values(formErrors).some((error) => error);
+
     return (
       <>
-        <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-4 bg-gray-300 hover:bg-gray-400  disabled:opacity-25  text-gray-800 font-bold py-2 px-4 rounded-full">
+        <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-4 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
           Sort!
         </button>
       </>
     );
   }
+
   return (
     <form onSubmit={handleFormSubmit}>
-      <Category categories={categories} handleChange={handleChange} reference={categorySelectRef} />
-      <Type type={type} handleChange={handleChange} reference={typeSelectRef} />
+      <Category handleChange={handleChange} reference={categorySelectRef} />
+      <Type handleChange={handleChange} reference={typeSelectRef} />
       <BooleanChooseField
         form={form}
         handleChange={handleChange}
@@ -70,7 +72,7 @@ function Form({  setFormSubmitted, formSubmitted, form, setForm, handleFormSubmi
           { id: 'notmeme', value: false, text: 'Not meme' }
         ]}
       />
-      <Button />
+      <SubmitButton />
     </form>
   );
 }

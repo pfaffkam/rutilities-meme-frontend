@@ -15,8 +15,8 @@ function useFetch(url) {
     };
     fetchData();
   }, [url]);
-
-  return { data };
+  
+ return { data };
 }
 
 export default useFetch;
