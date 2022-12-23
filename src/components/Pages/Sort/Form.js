@@ -34,7 +34,7 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
 
     return (
       <>
-        <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-4 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
+        <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-24 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
           Sort!
         </button>
       </>
@@ -42,7 +42,7 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form className=" pt-12 ml-4" onSubmit={handleFormSubmit}>
       <Category handleChange={handleChange} reference={categorySelectRef} />
       <Type handleChange={handleChange} reference={typeSelectRef} />
       <BooleanChooseField

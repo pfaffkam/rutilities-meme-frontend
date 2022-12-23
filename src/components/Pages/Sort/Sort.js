@@ -7,6 +7,7 @@ import RandomMeme from './RandomMeme';
 function Sort() {
   const [randomMeme, setRandomMeme] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const [formErrors, setFormErrors] = useState({
     category: true,
@@ -25,7 +26,10 @@ function Sort() {
   });
 
   useEffect(() => {
-    fetch('https://api.reykez.pl/api/memes/memes/random').then((res) => res.json().then((data) => setRandomMeme(data)));
+    fetch('https://api.reykez.pl/api/memes/memes/random')
+      .then((res) => res.json())
+      .then((data) => setRandomMeme(data))
+      .catch((error) => setIsError(true));
   }, [formSubmitted]);
 
   function handleChange(event) {
@@ -73,11 +77,11 @@ function Sort() {
 
   return (
     <>
-      <main className="bg-gray-600 min-h-screen min-w-400">
-        <div className="flex pt-20 justify-center flex-col items-center rounded-lg border shadow-md pr-8 md:flex-row md:max-w-auto border-gray-700 bg-gray-700">
+      <main className="bg-gray-600 min-h-[90vh]  min-w-screen">
+        <div className="flex pt-20 justify-center flex-col items-center rounded-lg border  shadow-md md:flex-row md:max-w-auto border-gray-700 bg-gray-700">
           <RandomMeme randomMeme={randomMeme} />
-          <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
-          <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />
+          <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+          {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
         </div>
       </main>
     </>
