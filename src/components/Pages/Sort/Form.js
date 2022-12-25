@@ -42,7 +42,7 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
   }
 
   return (
-    <form className=" pt-12 ml-4" onSubmit={handleFormSubmit}>
+    <form className=" pt-12 ml-4 md:ml-24" onSubmit={handleFormSubmit}>
       <Category handleChange={handleChange} reference={categorySelectRef} />
       <Type handleChange={handleChange} reference={typeSelectRef} />
       <BooleanChooseField

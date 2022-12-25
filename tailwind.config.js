@@ -3,9 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   variants: {
     width: ['responsive', 'hover', 'focus'],
-    extend: {
-      backgroundColor: ['active', 'hover', 'focus', 'invalid']
-    }
+    extend: {}
   },
   plugins: [require('tailwindcss-invalid-variant-plugin')],
   theme: {
