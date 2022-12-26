@@ -44,4 +44,5 @@ function NavItem({ to, text, icon }) {
     </Link>
   );
 }
+
 export default Header;
