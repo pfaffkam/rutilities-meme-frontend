@@ -32,6 +32,7 @@ function Header() {
     </div>
   );
 }
+
 function NavItem({ to, text, icon }) {
   const location = useLocation();
   const active = location.pathname === to;

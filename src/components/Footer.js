@@ -2,6 +2,7 @@ import { faTwitter, faGithub, faFacebook, faYoutube } from '@fortawesome/free-br
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Footer() {
+    
   return (
     <footer className="relative md:absolute right-0 bottom-0 left-0 w-auto pt-2 bg-gray-600 flex justify-center">
       <FooterIcon icon={faYoutube} reference={'https://youtube.com/'} txt={'Youtube'} value="[#ff0000]" />
@@ -11,7 +12,9 @@ function Footer() {
     </footer>
   );
 }
+
 function FooterIcon({ icon, reference, txt, value }) {
+
   return (
     <button>
       <div className={` text-3xl leading-3 hover:text-${value}`}>
