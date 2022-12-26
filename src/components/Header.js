@@ -6,17 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-  function NavItem({ to, text, icon }) {
-    const location = useLocation();
-    const active = location.pathname === to;
-
-    return (
-      <Link to={to} className={`p-2 rounded-lg md:mr-5 text-white ${active ? 'bg-orange-500 text-black' : ''}`}>
-        <FontAwesomeIcon className="mr-5" icon={icon} />
-        {text}
-      </Link>
-    );
-  }
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -42,5 +31,16 @@ function Header() {
       </div>
     </div>
   );
+  function NavItem({ to, text, icon }) {
+    const location = useLocation();
+    const active = location.pathname === to;
+
+    return (
+      <Link to={to} className={`p-2 rounded-lg md:mr-5 text-white ${active ? 'bg-orange-500 text-black' : ''}`}>
+        <FontAwesomeIcon className="mr-5" icon={icon} />
+        {text}
+      </Link>
+    );
+  }
 }
 export default Header;

@@ -1,7 +1,7 @@
 import useFetch from '../../../hooks/useFetch';
 
 const Category = ({ handleChange, reference }) => {
-  const categories = useFetch('https://api.reykez.pl/api/memes/meme-categories');
+  const categories = useFetch('https://api.reykez.pl/api/memes/meme-categories').data?._embedded?.items;
 
   return (
     <div className="mb-4">
@@ -9,7 +9,7 @@ const Category = ({ handleChange, reference }) => {
         <option value="Category" disabled>
           Category
         </option>
-        {categories.data?._embedded?.items.map((category, i) => (
+        {categories?.map((category, i) => (
           <option key={i} value={category.id}>
             {category.id}
           </option>

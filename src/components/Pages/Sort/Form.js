@@ -3,9 +3,10 @@ import Category from './Category';
 import Type from './Type';
 import BooleanChooseField from './BooleanChooseField';
 
-function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange, categories, type, formErrors, setFormErrors }) {
+function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange,formErrors, setFormErrors }) {
   const categorySelectRef = useRef();
   const typeSelectRef = useRef();
+  const hasEmptyFields = Object.values(formErrors).some((error) => error);
   useEffect(() => {
     if (!formSubmitted) {
       return;
@@ -28,16 +29,6 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
     categorySelectRef.current.value = 'Category';
     typeSelectRef.current.value = 'Type';
   }, [formSubmitted]);
-
-  function SubmitButton() {
-    const hasEmptyFields = Object.values(formErrors).some((error) => error);
-
-    return (
-        <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-24 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
-          Sort!
-        </button>
-    );
-  }
 
   return (
     <form className=" pt-12 ml-4 md:ml-24" onSubmit={handleFormSubmit}>
@@ -70,7 +61,9 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
           { id: 'notmeme', value: false, text: 'Not meme' }
         ]}
       />
-      <SubmitButton />
+      <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-24 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
+        Sort!
+      </button>
     </form>
   );
 }

@@ -8,7 +8,6 @@ function Sort() {
   const [randomMeme, setRandomMeme] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
-  console.log(randomMeme?.id, randomMeme?.url);
   const [formErrors, setFormErrors] = useState({
     category: true,
     type: true,
@@ -76,13 +75,13 @@ function Sort() {
   }
 
   return (
-      <main>
-        <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
-          <RandomMeme randomMeme={randomMeme} />
-          <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
-          {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
-        </div>
-      </main>
+    <main>
+      <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
+        <RandomMeme randomMeme={randomMeme} />
+        <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+        {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
+      </div>
+    </main>
   );
 }
 
