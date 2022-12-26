@@ -21,7 +21,7 @@ function Header() {
 
   return (
     <div>
-      <nav className="hidden md:flex bg-gray-800  items-center justify-between mx-auto md:flex-row md:justify-start md:items-center">
+      <nav className="hidden md:flex bg-gray-800 items-center justify-between mx-auto md:flex-row md:justify-start md:items-center">
         <div className="flex-1 flex items-center justify-between">
           <Link to="/sort">
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
@@ -33,7 +33,7 @@ function Header() {
       <div className="md:hidden fixed">
         <Hamburger toggled={isOpen} toggle={setOpen} color="#f97316" duration={0.6} label="Menu" />
         {isOpen && (
-          <header className="flex items-center md:block rounded-lg  justify-end max-h-full flex-nowrap bg-gray-800 ">
+          <header className="flex items-center md:block rounded-lg justify-end max-h-full flex-nowrap bg-gray-800 ">
             <div className="flex flex-col">
               <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
             </div>

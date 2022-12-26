@@ -33,11 +33,9 @@ function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit
     const hasEmptyFields = Object.values(formErrors).some((error) => error);
 
     return (
-      <>
         <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-24 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
           Sort!
         </button>
-      </>
     );
   }
 

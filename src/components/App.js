@@ -3,7 +3,6 @@ import Header from './Header';
 import Footer from './Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sort from './Pages/Sort/Sort';
-import CookieModal from './CookieModal';
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
         <Routes>
           <Route path="sort" element={<Sort />} />
         </Routes>
-        <CookieModal />
         <Footer />
       </Router>
     </div>
