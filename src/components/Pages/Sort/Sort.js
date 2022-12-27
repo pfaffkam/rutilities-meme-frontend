@@ -3,6 +3,9 @@ import Form from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RandomMeme from './RandomMeme';
+import LoginForm from '../Login/LoginForm';
+import Cookies from 'js-cookie';
+import useFetch from '../../../hooks/useFetch';
 
 function Sort() {
   const [randomMeme, setRandomMeme] = useState(null);
@@ -24,11 +27,9 @@ function Sort() {
     isMeme: ''
   });
 
+  const memes = useFetch('https://api.reykez.pl/api/memes/memes/random')?.data;
   useEffect(() => {
-    fetch('https://api.reykez.pl/api/memes/memes/random')
-      .then((res) => res.json())
-      .then((data) => setRandomMeme(data))
-      .catch((error) => setIsError(true));
+    setRandomMeme(memes);
   }, [formSubmitted]);
 
   function handleChange(event) {
@@ -55,10 +56,12 @@ function Sort() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    const token = Cookies.get('token');
     fetch(`https://api.reykez.pl/api/memes/memes/${randomMeme.id}`, {
       method: 'PATCH',
       crossDomain: true,
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
         method: 'PATCH'
@@ -80,6 +83,7 @@ function Sort() {
         <RandomMeme randomMeme={randomMeme} />
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
         {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
+        <LoginForm />
       </div>
     </main>
   );
