@@ -33,12 +33,17 @@ function BrowsingMemes() {
   if (!memeColections) {
     toast.warn('Oops we have a problem, no meme available, please contact support', { autoClose: 5000 });
 
-    return <img className="rounded-t-lg block m-auto w-[50vw] md:w-[30vw] max-w-[50vw] max-h-[50vh] md:rounded border-4" src={photoError} alt="error" />;
+    return (
+      <div className="flex pt-20 justify-center items-center border shadow-md min-h-[85vh] border-gray-700 bg-gray-700">
+        <img className="rounded-t-lg max-w-full min-h-0 max-h-full m-8 md:rounded border-4" src={photoError} alt="error" />
+        <ToastContainer position="bottom-left" hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+      </div>
+    );
   }
 
   return (
     <InfiniteScroll dataLength={10} hasMore={true} className=" bg-gray-700 max-w-32 shadow-lg flex flex-col justify-center items-center ">
-      <p className="text-white right-5 top-16 hidden  md:block absolute p-2 bg-orange-700 rounded-lg">you are on {page} page</p>
+      <p className="text-white right-5 top-16 hidden md:block absolute p-2 bg-orange-700 rounded-lg">you are on {page} page</p>
       {memeColections?.map((meme) => (
         <>
           <div key={meme.id} className="m-4 bg-gray-400 rounded-lg shadow-lg">
