@@ -28,7 +28,7 @@ function Sort() {
     fetch('https://api.reykez.pl/api/memes/memes/random')
       .then((res) => res.json())
       .then((data) => setRandomMeme(data))
-      .catch((error) => setIsError(true));
+      .catch(setIsError(true));
   }, [formSubmitted]);
 
   function handleChange(event) {

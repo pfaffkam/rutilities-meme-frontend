@@ -3,11 +3,7 @@ import { toast } from 'react-toastify';
 
 function RandomMeme(randomMeme) {
   try {
-    if (randomMeme.randomMeme?.url.endsWith('.mp4') || randomMeme.randomMeme?.url.endsWith('.avi')) {
-      return <video className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={randomMeme.randomMeme?.url} alt="random meme video" controls></video>;
-    } else {
-      return <img className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={randomMeme.randomMeme?.url} alt="random meme" />;
-    }
+    randomMeme.randomMeme?.url.endsWith('.mp4') || randomMeme.randomMeme?.url.endsWith('.avi') ? <video className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={randomMeme.randomMeme?.url} alt="random meme video" controls></video> : <img className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={randomMeme.randomMeme?.url} alt="random meme" />;
   } catch (error) {
     toast.warn('Oops we have a problem, no meme available, please contact support', { autoClose: 5000 });
 
