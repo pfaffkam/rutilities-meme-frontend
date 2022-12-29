@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import useFetch from '../../../hooks/useFetch';
 
 function Sort() {
-  const [randomMeme, setRandomMeme] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
   const [formErrors, setFormErrors] = useState({
@@ -26,13 +25,8 @@ function Sort() {
     isMeme: ''
   });
 
-  const { data, isLoading } = useFetch('https://api.reykez.pl/api/memes/memes/random');
-  useEffect(() => {
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-    setRandomMeme(data);
-  }, [formSubmitted]);
+  //formSubbmited tutaj służy jako drugi argument i useFetch custom hook dostaje sygnał gdy, formularz jest wysłany fetchuje dane od nowa
+  const memes = useFetch('https://api.reykez.pl/api/memes/memes/random', formSubmitted)?.data;
 
   function handleChange(event) {
     const fieldName = event.target.name;
@@ -59,7 +53,7 @@ function Sort() {
   function handleSubmit(event) {
     event.preventDefault();
     const token = Cookies.get('token');
-    fetch(`https://api.reykez.pl/api/memes/memes/${randomMeme.id}`, {
+    fetch(`https://api.reykez.pl/api/memes/memes/${memes.id}`, {
       method: 'PATCH',
       crossDomain: true,
       headers: {
@@ -82,7 +76,7 @@ function Sort() {
   return (
     <main>
       <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
-        <RandomMeme randomMeme={randomMeme} />
+        <RandomMeme randomMeme={memes} />
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
         {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
       </div>

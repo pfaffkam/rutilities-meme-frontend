@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 function useFetch(url, formSubmitted) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -15,7 +14,7 @@ function useFetch(url, formSubmitted) {
           headers: {
             Authorization: `Bearer ${token}`
           }
-        })
+        });
         const data = await response.json();
         setData(data);
       } catch (error) {
@@ -27,7 +26,7 @@ function useFetch(url, formSubmitted) {
     fetchData();
   }, [formSubmitted]);
 
-  return { data,isLoading };
+  return { data, isLoading };
 }
 
 export default useFetch;

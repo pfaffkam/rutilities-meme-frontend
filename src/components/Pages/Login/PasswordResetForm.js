@@ -2,8 +2,8 @@ import React from 'react';
 
 function PasswordResetForm(props) {
   return (
-    <form className="bg-gray-700 p-8  flex flex-col justify-center items-center  rounded-lg">
-      <h2 className="text-lg font-bold mb-4">Remind password</h2>
+    <form className="bg-gray-700 p-8 flex flex-col justify-center items-center  rounded-lg">
+      <h2 className="text-lg text-white font-bold mb-4">Remind password</h2>
       <div className="mb-4">
         <input type="email" id="email" className=" w-full rounded" placeholder="Enter your email address" required />
       </div>
