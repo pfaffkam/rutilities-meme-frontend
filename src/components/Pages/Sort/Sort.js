@@ -3,7 +3,6 @@ import Form from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RandomMeme from './RandomMeme';
-import LoginForm from '../Login/LoginForm';
 import Cookies from 'js-cookie';
 import useFetch from '../../../hooks/useFetch';
 
@@ -27,9 +26,12 @@ function Sort() {
     isMeme: ''
   });
 
-  const memes = useFetch('https://api.reykez.pl/api/memes/memes/random')?.data;
+  const { data, isLoading } = useFetch('https://api.reykez.pl/api/memes/memes/random');
   useEffect(() => {
-    setRandomMeme(memes);
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+    setRandomMeme(data);
   }, [formSubmitted]);
 
   function handleChange(event) {
@@ -83,7 +85,6 @@ function Sort() {
         <RandomMeme randomMeme={randomMeme} />
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
         {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
-        <LoginForm />
       </div>
     </main>
   );

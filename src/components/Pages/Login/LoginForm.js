@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PasswordResetForm from './PasswordResetForm';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
@@ -21,8 +22,7 @@ const LoginForm = () => {
         throw new Error('Błąd logowania');
       }
       const { token } = await response.json();
-      console.log(token);
-      document.cookie = `token=${token}`;
+      Cookies.set('token', token);
       navigate('/sort');
     } catch (error) {
       setError(error.message);
@@ -30,21 +30,21 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div className="flex justify-center items-center h-[85vh]">
       {showPasswordReset ? (
-        <PasswordResetForm onCancelClick={() => setShowPasswordReset(false)} />
+        <PasswordResetForm setShowPasswordReset={setShowPasswordReset} />
       ) : (
-        <form className="md:absolute top-16 right-5 p-8  bg-gray-600 rounded-lg" onSubmit={handleSubmit}>
+        <form className="md:absolute  bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
           {error && <p className="text-red-500">{error}</p>}
           <label>
-            <input className="mt-4 w-full rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
           </label>
           <br />
           <label>
-            <input className="mt-4 w-full rounded" placeholder=" Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+            <input className="mt-4 w-full max-w-[50vw] rounded" autocomplete="current-password" placeholder=" Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
           </label>
           <br />
-          <button className="mt-4 p-2 bg-red-700 w-full text-white rounded-lg" type="submit">
+          <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
             Log in
           </button>
           <div className="flex justify-between w-full">
@@ -57,7 +57,7 @@ const LoginForm = () => {
           </div>
         </form>
       )}
-    </>
+    </div>
   );
 };
 
