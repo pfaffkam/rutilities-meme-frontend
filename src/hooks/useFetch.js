@@ -3,10 +3,9 @@ import Cookies from 'js-cookie';
 
 function useFetch(url, formSubmitted) {
   const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       try {
         const token = Cookies.get('token');
         const response = await fetch(url, {
@@ -19,14 +18,12 @@ function useFetch(url, formSubmitted) {
         setData(data);
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchData();
   }, [formSubmitted]);
 
-  return { data, isLoading };
+  return { data };
 }
 
 export default useFetch;
