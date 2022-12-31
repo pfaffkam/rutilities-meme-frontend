@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RandomMeme from './RandomMeme';
 import Cookies from 'js-cookie';
-import useFetch from '../../../hooks/useFetch';
+import { PacmanLoader } from 'react-spinners';
 
 function Sort() {
+  const [randomMeme, setRandomMeme] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formErrors, setFormErrors] = useState({
     category: true,
     type: true,
@@ -25,8 +27,28 @@ function Sort() {
     isMeme: ''
   });
 
-  //formSubbmited tutaj służy jako drugi argument i useFetch custom hook dostaje sygnał gdy, formularz jest wysłany fetchuje dane od nowa
-  const memes = useFetch('https://api.reykez.pl/api/memes/memes/random', formSubmitted)?.data;
+  const token = Cookies.get('token');
+
+  useEffect(() => {
+    if (formSubmitted) {
+      return;
+    }
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.reykez.pl/api/memes/memes/random', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        setRandomMeme(data);
+        setLoading(false);
+      } catch (error) {
+        setIsError(true);
+      }
+    };
+    fetchData();
+  }, [formSubmitted]);
 
   function handleChange(event) {
     const fieldName = event.target.name;
@@ -52,8 +74,7 @@ function Sort() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const token = Cookies.get('token');
-    fetch(`https://api.reykez.pl/api/memes/memes/${memes.id}`, {
+    fetch(`https://api.reykez.pl/api/memes/memes/${randomMeme.id}`, {
       method: 'PATCH',
       crossDomain: true,
       headers: {
@@ -76,7 +97,7 @@ function Sort() {
   return (
     <main>
       <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
-        <RandomMeme randomMeme={memes} />
+        {!loading ? <RandomMeme randomMeme={randomMeme} /> : <PacmanLoader color="orange" />}
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
         {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
       </div>

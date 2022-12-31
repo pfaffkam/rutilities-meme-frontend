@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-function useFetch(url, formSubmitted) {
+function useFetch(url) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function useFetch(url, formSubmitted) {
       }
     };
     fetchData();
-  }, [formSubmitted]);
+  }, []);
 
   return { data };
 }
