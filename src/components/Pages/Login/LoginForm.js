@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   return (
     <div className="flex justify-center items-center h-[85vh]">
-      <form className="md:absolute  bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
+      <form className="md:absolute bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
         {error && <p className="text-red-500">{error}</p>}
         <label>
           <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
