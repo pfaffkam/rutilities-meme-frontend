@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sort from './Pages/Sort/Sort';
 import LoginForm from './Pages/Login/LoginForm';
 import PrivateRoute from './Pages/Login/PrivateRoute';
+import Unautorized from './Unautorized';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="login" element={<LoginForm />} />
+          <Route path="unautorized" element={<Unautorized />} />
           <Route
             path="/sort"
             element={
