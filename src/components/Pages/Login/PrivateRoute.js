@@ -1,15 +1,18 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import Cookies from 'js-cookie';
 
 const PrivateRoute = ({ children }) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const hasToken = !!Cookies.get('token');
 
-  if (hasToken) {
-    return children;
-  }
-  navigate('/unautorized', { state: { from: location } });
+  useEffect(() => {
+    if (!hasToken) {
+      navigate('/unautorized');
+    }
+  }, [hasToken]);
+
+  return hasToken ? children : null;
 };
 
 export default PrivateRoute;
