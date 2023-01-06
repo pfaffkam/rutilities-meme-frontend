@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     if (!hasToken) {
-      navigate('/unautorized');
+      navigate('/unauthorized');
     }
   }, [hasToken]);
 

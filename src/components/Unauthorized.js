@@ -1,9 +1,9 @@
-import unautorizedPhoto from '../assets/unautorized-error.png';
+import unauthorizedPhoto from '../assets/unauthorized-error.png';
 import { Link } from 'react-router-dom';
-function Unautorized() {
+function Unauthorized() {
   return (
     <div>
-      <img className="mx-auto my-auto" src={unautorizedPhoto} alt="named you shall not pass"></img>
+      <img className="mx-auto my-auto" src={unauthorizedPhoto} alt="named you shall not pass"></img>
       <h1 className="flex flex-col text:sm md:text-2xl justify-center items-center">
         you shall not pass!!
         <Link to="/login">
@@ -14,4 +14,4 @@ function Unautorized() {
   );
 }
 
-export default Unautorized;
+export default Unauthorized;

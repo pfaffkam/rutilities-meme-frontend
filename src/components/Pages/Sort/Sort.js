@@ -25,7 +25,6 @@ function Sort() {
     isMeme: ''
   });
 
-  //formSubbmited tutaj służy jako drugi argument i useFetch custom hook dostaje sygnał gdy, formularz jest wysłany fetchuje dane od nowa
   const meme = useFetch('https://api.reykez.pl/api/memes/memes/random', formSubmitted)?.data;
 
   function handleChange(event) {
