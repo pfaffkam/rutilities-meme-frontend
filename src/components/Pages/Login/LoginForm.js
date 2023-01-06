@@ -32,11 +32,11 @@ const LoginForm = () => {
       <form className="md:absolute bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
         {error && <p className="text-red-500">{error}</p>}
         <label>
-          <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder="Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
         </label>
         <br />
         <label>
-          <input className="mt-4 w-full max-w-[50vw] rounded" autoComplete="current-password" placeholder=" Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+          <input className="mt-4 w-full max-w-[50vw] rounded" autoComplete="current-password" placeholder="Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </label>
         <br />
         <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
