@@ -1,5 +1,5 @@
 import caveman from '../assets/caveman-error.gif';
-import { Link } from 'react-router-dom'; // jeśli używasz biblioteki react-router-dom
+import { Link } from 'react-router-dom'
 
 function Missing() {
   return (
