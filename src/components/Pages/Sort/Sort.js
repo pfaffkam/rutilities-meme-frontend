@@ -4,11 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RandomMeme from './RandomMeme';
 import Cookies from 'js-cookie';
+import { PacmanLoader } from 'react-spinners';
 import useFetch from '../../../hooks/useFetch';
 
 function Sort() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formErrors, setFormErrors] = useState({
     category: true,
     type: true,
@@ -25,7 +27,7 @@ function Sort() {
     isMeme: ''
   });
 
-  // formSubmited here  as the second argument and useFetch custom hook gets a signal when the form is submitted fetches the data again
+  // formSubmited here as the second argument and useFetch custom hook gets a signal when the form is submitted fetches the data again
   const meme = useFetch('https://api.reykez.pl/api/memes/memes/random', formSubmitted)?.data;
 
   function handleChange(event) {
@@ -76,9 +78,9 @@ function Sort() {
   return (
     <main>
       <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
-        <RandomMeme randomMeme={meme} />
+        {loading ? <PacmanLoader color="orange" /> : <RandomMeme randomMeme={meme} />}
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
-        {!isError && <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
+        {isError || <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
       </div>
     </main>
   );
