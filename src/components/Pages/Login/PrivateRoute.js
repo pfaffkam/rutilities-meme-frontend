@@ -5,16 +5,15 @@ import Cookies from 'js-cookie';
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const hasToken = !!Cookies.get('token');
 
-  if (hasToken) {
+  if (!!Cookies.get('token')) {
     return children;
   }
   navigate('/login', { state: { from: location } });
 
   return (
     <>
-      <h1 className="text-red-400 text-center">If you wanna continue you have to log in </h1>
+      <h1 className="text-red-400 text-center">If you want to continue you have to log in </h1>
       <LoginForm />
     </>
   );
