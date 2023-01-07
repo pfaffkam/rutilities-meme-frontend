@@ -3,7 +3,7 @@ import Category from './Category';
 import Type from './Type';
 import BooleanChooseField from './BooleanChooseField';
 
-function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange,formErrors, setFormErrors }) {
+function Form({ setFormSubmitted, formSubmitted, form, setForm, handleFormSubmit, handleChange, formErrors, setFormErrors }) {
   const categorySelectRef = useRef();
   const typeSelectRef = useRef();
   const hasEmptyFields = Object.values(formErrors).some((error) => error);

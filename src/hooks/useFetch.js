@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
-function useFetch(url) {
+function useFetch(url, formSubmitted) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        const token = Cookies.get('token');
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         const data = await response.json();
         setData(data);
       } catch (error) {
-        console.log(error)}
-    }
+        console.log(error);
+      }
+    };
     fetchData();
-  }, [url]);
+  }, [formSubmitted]);
 
   return { data };
 }
