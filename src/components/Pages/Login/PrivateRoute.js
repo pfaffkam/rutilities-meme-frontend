@@ -1,22 +1,18 @@
-import { useLocation, useNavigate } from 'react-router';
-import LoginForm from './LoginForm';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import Cookies from 'js-cookie';
 
 const PrivateRoute = ({ children }) => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const hasToken = !!Cookies.get('token');
 
-  if (!!Cookies.get('token')) {
-    return children;
-  }
-  navigate('/login', { state: { from: location } });
+  useEffect(() => {
+    if (!hasToken) {
+      navigate('/unauthorized');
+    }
+  }, [hasToken]);
 
-  return (
-    <>
-      <h1 className="text-red-400 text-center">If you want to continue you have to log in </h1>
-      <LoginForm />
-    </>
-  );
+  return hasToken ? children : null;
 };
 
 export default PrivateRoute;
