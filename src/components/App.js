@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sort from './Pages/Sort/Sort';
+import Missing from './Missing';
 import LoginForm from './Pages/Login/LoginForm';
 import PrivateRoute from './Pages/Login/PrivateRoute';
 
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="*" element={<Missing />} />
           <Route path="login" element={<LoginForm />} />
           <Route
             path="/sort"
