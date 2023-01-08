@@ -16,8 +16,8 @@ function Header() {
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
           </Link>
         </div>
-        <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
-        <NavItem to="/home" text="Sortowanie memów" icon={faRandom} />
+        <NavItem to="/sort" text="Sort memes" icon={faSortAmountAsc} />
+        <NavItem to="/home" text="Browsing memes" icon={faRandom} />
       </nav>
 
       <div className="md:hidden fixed">
@@ -25,8 +25,8 @@ function Header() {
         {isOpen && (
           <header className="flex items-center md:block rounded-lg justify-end max-h-full flex-nowrap bg-gray-800 ">
             <div className="flex flex-col">
-              <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
-              <NavItem to="/home" text="Sortowanie memów" icon={faRandom} />
+              <NavItem to="/sort" text="Sort memes" icon={faSortAmountAsc} />
+              <NavItem to="/home" text="Browsing memes" icon={faRandom} />
             </div>
           </header>
         )}

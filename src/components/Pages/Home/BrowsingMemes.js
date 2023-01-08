@@ -3,16 +3,22 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import useFetch from '../../../hooks/useFetch';
 import { toast, ToastContainer } from 'react-toastify';
 import photoError from '../../../assets/error.png';
+import { FadeLoader } from 'react-spinners';
 
 function BrowsingMemes() {
-  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [ratings, setRatings] = useState({});
-  const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=${page}&limit=10&sort%5Bfield1%5D=asc&sort%5Bfield%5D=desc`).data?._embedded?.items;
 
-  function handlePageChange(direction) {
-    setPage((prevPage) => prevPage + direction);
-    window.scrollTo(0, 0);
+  function loadMoreMemes() {
+    const scrollTop = window.pageYOffset;
+    const scrollHeight = document.body.scrollHeight;
+    const clientHeight = window.innerHeight;
+    console.log(scrollTop, scrollHeight, clientHeight);
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setLimit(limit + 10);
+    }
   }
+  const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=1&limit=${limit}`, [limit]).data?._embedded?.items;
 
   function handleLike(memeId) {
     setRatings((prevRatings) => ({
@@ -42,13 +48,10 @@ function BrowsingMemes() {
   }
 
   return (
-    <InfiniteScroll dataLength={10} hasMore={true} className=" bg-gray-700 max-w-32 shadow-lg flex flex-col justify-center items-center ">
-      <p className="text-white right-5 top-16 hidden md:block absolute p-2 bg-orange-700 rounded-lg">you are on {page} page</p>
+    <InfiniteScroll dataLength={limit} hasMore={true} next={loadMoreMemes} scrollThreshold={0.99} loader={<FadeLoader className="fixed mb-4" color="orange" />} className=" bg-gray-700 max-w-32 shadow-lg flex flex-col justify-center items-center ">
       {memeColections?.map((meme) => (
-        <>
-          <div key={meme.id} className="m-4 bg-gray-400 rounded-lg shadow-lg">
-            {meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme" />}
-          </div>
+        <div key={meme.id}>
+          <div className="m-4 bg-gray-400 rounded-lg shadow-lg">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme" />}</div>
           <div className="flex mb-10">
             <button onClick={() => handleLike(meme.id)} className="px-4 py-2 bg-green-700 text-white rounded-full shadow-lg">
               + ({ratings[meme.id] || 0})
@@ -57,17 +60,8 @@ function BrowsingMemes() {
               - ({ratings[meme.id] || 0})
             </button>
           </div>
-        </>
+        </div>
       ))}
-      <div className="flex mt-4 justify-center mb-6">
-        <button className=" bg-orange-500 disabled:opacity-30 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded-full" onClick={() => handlePageChange(-1)} disabled={page === 1}>
-          Previous page
-        </button>
-        <button className=" bg-orange-500 disabled:opacity-30 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded-full ml-4" onClick={() => handlePageChange(1)} disabled={page === 646}>
-          Next page
-        </button>
-      </div>
-      <p className="text-white right-0 bottom-0 relative p-2 bg-orange-700 rounded-lg">you are on {page} page</p>
       <ToastContainer position="bottom-left" hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
     </InfiniteScroll>
   );
