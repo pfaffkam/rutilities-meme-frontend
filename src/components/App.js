@@ -20,7 +20,7 @@ function App() {
           <Route path="*" element={<Missing />} />
           <Route path="login" element={<LoginForm />} />
           <Route
-            path="/sort"
+            path="sort"
             element={
               <PrivateRoute>
                 <Sort />
