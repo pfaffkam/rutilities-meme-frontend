@@ -9,16 +9,10 @@ function BrowsingMemes() {
   const [limit, setLimit] = useState(10);
   const [ratings, setRatings] = useState({});
 
-  function loadMoreMemes() {
-    const scrollTop = window.pageYOffset;
-    const scrollHeight = document.body.scrollHeight;
-    const clientHeight = window.innerHeight;
-    console.log(scrollTop, scrollHeight, clientHeight);
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setLimit(limit + 10);
-    }
-  }
-  const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=1&limit=${limit}`, [limit]).data?._embedded?.items;
+  const loadMoreMemes = () => {
+    setLimit(limit + 5);
+  };
+  const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=1&limit=${limit}`, limit)?.data?._embedded?.items;
 
   function handleLike(memeId) {
     setRatings((prevRatings) => ({
@@ -48,17 +42,18 @@ function BrowsingMemes() {
   }
 
   return (
-    <InfiniteScroll dataLength={limit} hasMore={true} next={loadMoreMemes} scrollThreshold={0.99} loader={<FadeLoader className="fixed mb-4" color="orange" />} className=" bg-gray-700 max-w-32 shadow-lg flex flex-col justify-center items-center ">
+    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.99} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className=" bg-gray-700 max-w-32 shadow-lg flex flex-col justify-center items-center ">
       {memeColections?.map((meme) => (
         <div key={meme.id}>
-          <div className="m-4 bg-gray-400 rounded-lg shadow-lg">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-t-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme" />}</div>
-          <div className="flex mb-10">
-            <button onClick={() => handleLike(meme.id)} className="px-4 py-2 bg-green-700 text-white rounded-full shadow-lg">
-              + ({ratings[meme.id] || 0})
+          <div className="m-2 bg-gray-400 rounded-lg shadow-lg">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 md:rounded border-4" src={meme.url} alt="random meme" />}</div>
+          <div className="flex mb-8 ">
+            <button onClick={() => handleLike(meme.id)} className="px-2 font-bold bg-green-700 text-white rounded-full shadow-lg">
+              +
             </button>
-            <button onClick={() => handleDislike(meme.id)} className="px-4 py-2 bg-red-700 text-white rounded-full shadow-lg">
-              - ({ratings[meme.id] || 0})
+            <button onClick={() => handleDislike(meme.id)} className="px-2 font-bold bg-red-700 text-white rounded-full shadow-lg">
+              -
             </button>
+            <p className="px-2 h-6 bg-black text-white font-bold rounded-full"> {ratings[meme.id] || 0}</p>
           </div>
         </div>
       ))}
