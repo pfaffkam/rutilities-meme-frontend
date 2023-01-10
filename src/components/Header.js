@@ -4,17 +4,25 @@ import { useState } from 'react';
 import { Spin as Hamburger } from 'hamburger-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
+import QRCodeGenerator from './QRCodeGenerator';
+// import { BiQrScan } from 'react-icons/bi';
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
+  const [showQRCode, setShowQRCode] = useState(false);
 
   return (
     <div>
       <nav className="hidden md:flex bg-gray-800 items-center justify-between mx-auto md:flex-row md:justify-start md:items-center">
-        <div className="flex-1 flex items-center justify-between">
+        <div className="flex-1 flex items-center">
           <Link to="/sort">
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
           </Link>
+          <button className="ml-24 hidden md:flex" onClick={() => setShowQRCode(!showQRCode)}>
+            <p>Ikonka</p>
+            {/* dodać ikonkę BiQrScan zainstalowana bilbioteka w 10 branch*/}
+            {showQRCode && <QRCodeGenerator />}
+          </button>
         </div>
         <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
       </nav>
