@@ -6,8 +6,9 @@ import RandomMeme from './RandomMeme';
 import Cookies from 'js-cookie';
 import { PacmanLoader } from 'react-spinners';
 import useFetch from '../../../hooks/useFetch';
+import withLanguage from '../../HOC/withLanguage';
 
-function Sort() {
+function Sort(texts) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -80,10 +81,24 @@ function Sort() {
       <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
         {loading ? <PacmanLoader color="orange" /> : <RandomMeme randomMeme={meme} />}
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
-        {isError || <Form setFormSubmitted={setFormSubmitted} formSubmitted={formSubmitted} form={form} setForm={setForm} formErrors={formErrors} setFormErrors={setFormErrors} handleChange={handleChange} handleFormSubmit={handleSubmit} />}
+        {isError || (
+          <Form
+            props={{
+              texts,
+              form,
+              formErrors,
+              formSubmitted,
+              setForm,
+              setFormErrors,
+              setFormSubmitted,
+              handleSubmit,
+              handleChange
+            }}
+          />
+        )}
       </div>
     </main>
   );
 }
 
-export default Sort;
+export default withLanguage(Sort);
