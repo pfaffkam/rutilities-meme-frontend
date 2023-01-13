@@ -3,43 +3,36 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import RegistrationForm from './RegistrationForm';
 import PasswordResetForm from './PasswordResetForm';
-
-import { useAuth0 } from '@auth0/auth0-react';
+import useAuth from '../../../hooks/useAuth';
 
 const LoginForm = () => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
-  const { loginWithRedirect } = useAuth0();
   const [email, setEmail] = useState('username@example.com');
   const [password, setPassword] = useState('passwd');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await loginWithRedirect({
-        redirect_uri: `${window.location.origin}/sort`,
-        appState: { targetUrl: '/sort' }
+      const response = await fetch('https://api.reykez.pl/api/security/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
       });
+      if (!response.ok) {
+        throw new Error('login error, correct the data');
+      }
+      const { token, user } = await response.json();
+      const roles = user?.roles;
+      setAuth({ email, password, roles });
+      Cookies.set('token', token);
+      navigate('/homew');
     } catch (error) {
       setError(error.message);
     }
-  };
-  const handleGoogleLogin = async () => {
-    await loginWithRedirect({
-      redirect_uri: `${window.location.origin}/sort`,
-      appState: { targetUrl: '/sort' },
-      connection: 'google-oauth2'
-    });
-  };
-
-  const handleFacebookLogin = async () => {
-    await loginWithRedirect({
-      redirect_uri: `${window.location.origin}/sort`,
-      appState: { targetUrl: '/sort' },
-      connection: 'facebook'
-    });
   };
 
   return (
@@ -50,18 +43,9 @@ const LoginForm = () => {
         <RegistrationForm setShowRegistration={setShowRegistration} />
       ) : (
         <form className="md:absolute bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
-          <button className="mt-4 p-2 bg-red-700 max-w-[50vw] text-white rounded-lg" type="submit">
-            Log in
-          </button>
-          <button className="mt-4 p-2 bg-red-700 max-w-[50vw] text-white rounded-lg" onClick={handleGoogleLogin}>
-            Log in with Google
-          </button>
-          <button className="mt-4 p-2 bg-red-700 max-w-[50vw] text-white rounded-lg" onClick={handleFacebookLogin}>
-            Log in with Facebook
-          </button>
           {error && <p className="text-red-500">{error}</p>}
           <label>
-            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" autoComplete="username" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
           </label>
           <br />
           <label>
