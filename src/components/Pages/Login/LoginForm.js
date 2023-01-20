@@ -50,7 +50,7 @@ const LoginForm = (props) => {
           </label>
           <br />
           <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
-            Log in
+            {props.texts.logIn}
           </button>
           <div className="flex justify-between w-full">
             <div className="text-gray-400 mr-8" onClick={() => setShowPasswordReset(true)}>
