@@ -29,7 +29,7 @@ const LoginForm = () => {
       const roles = user?.roles;
       setAuth({ email, password, roles });
       Cookies.set('token', token);
-      navigate('/homew');
+      navigate('/home');
     } catch (error) {
       setError(error.message);
     }
@@ -45,7 +45,7 @@ const LoginForm = () => {
         <form className="md:absolute bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
           {error && <p className="text-red-500">{error}</p>}
           <label>
-            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" autoComplete="username" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" autoComplete="username" placeholder="Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
           </label>
           <br />
           <label>
