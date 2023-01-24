@@ -35,7 +35,7 @@ function Header(props) {
                 <NavItem to="/sort" text={props.texts.sortMemes} icon={faSortAmountAsc} />
               </div>
             </header>
-            <button className=" absolute top-3 left-14 text-orange-500" onClick={() => setLanguage(props.language === 'en' ? 'pl' : 'en')}>
+            <button className=" absolute top-3 left-14 text-orange-500" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>
               {<FontAwesomeIcon size="lg" icon={faGlobe} />}
             </button>
           </>
