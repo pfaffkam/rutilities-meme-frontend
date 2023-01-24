@@ -17,7 +17,6 @@ function BrowsingMemes() {
   const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=1&limit=${limit}`, limit)?.data?._embedded?.items;
 
   function handleVoice(memeId, isLike) {
-    console.log(memeId, isLike);
     setRatings((prevRatings) => ({
       ...prevRatings,
       [memeId]: isLike ? (prevRatings[memeId] || 0) + 1 : (prevRatings[memeId] || 0) - 1
