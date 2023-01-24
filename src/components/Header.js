@@ -5,7 +5,7 @@ import { Spin as Hamburger } from 'hamburger-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
 import QRCodeGenerator from './QRCodeGenerator';
-// import { BiQrScan } from 'react-icons/bi';
+import { BiQrScan } from 'react-icons/bi';
 
 function Header() {
   const [isOpen, setOpen] = useState(false);
@@ -19,8 +19,7 @@ function Header() {
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
           </Link>
           <button className="ml-24 hidden md:flex" onClick={() => setShowQRCode(!showQRCode)}>
-            <p>Ikonka</p>
-            {/* dodać ikonkę BiQrScan zainstalowana bilbioteka w 10 branch*/}
+            {<BiQrScan />}
             {showQRCode && <QRCodeGenerator />}
           </button>
         </div>
