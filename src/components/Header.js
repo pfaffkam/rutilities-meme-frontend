@@ -22,7 +22,7 @@ function Header(props) {
         <NavItem to="/sort" text={props.texts.sortMemes} icon={faSortAmountAsc} />
         <button className="mr-4 mt-2 text-orange-500 flex flex-col" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>
           {<FontAwesomeIcon size="lg" icon={faGlobe} />}
-          {language === 'en' ? 'PL' : 'EN'}
+          {language.toUpperCase()}
         </button>
       </nav>
 
