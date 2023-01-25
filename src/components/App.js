@@ -7,6 +7,7 @@ import LoginForm from './Pages/Login/LoginForm';
 import PrivateRoute from './Pages/Login/PrivateRoute';
 import Unauthorized from './Unauthorized';
 import Missing from './Missing';
+import BrowsingMemes from './Pages/Home/BrowsingMemes';
 
 const ROLES = {
   User: 'ROLE_USER',
