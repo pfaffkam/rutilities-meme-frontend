@@ -6,18 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { LanguageContext } from './context/LanguageProvider';
 import withLanguage from './HOC/withLanguage';
+import { faPlusSquare, faRandom, faSearch, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
+import QRCodeGenerator from './QRCodeGenerator';
+import { BiQrScan } from 'react-icons/bi';
 
 function Header(props) {
   const [isOpen, setOpen] = useState(false);
   const { language, setLanguage } = useContext(LanguageContext);
+  const [showQRCode, setShowQRCode] = useState(false);
 
   return (
     <div>
       <nav className="hidden md:flex bg-gray-800 items-center justify-between mx-auto md:flex-row md:justify-start md:items-center">
         <div className="flex-1 flex items-center justify-between">
-          <Link to="/sort">
+          <Link to="/home">
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
           </Link>
+          <button className="ml-24 hidden md:flex" onClick={() => setShowQRCode(!showQRCode)}>
+            {<BiQrScan />}
+            {showQRCode && <QRCodeGenerator />}
+          </button>
         </div>
         <NavItem to="/sort" text={props.texts.sortMemes} icon={faSortAmountAsc} />
         <button className="mr-4 mt-2 text-orange-500 flex flex-col" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>

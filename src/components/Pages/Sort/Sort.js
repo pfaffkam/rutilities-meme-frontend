@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,7 @@ import withLanguage from '../../HOC/withLanguage';
 function Sort(texts) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({
     category: true,
     type: true,
@@ -56,6 +56,7 @@ function Sort(texts) {
   function handleSubmit(event) {
     event.preventDefault();
     const token = Cookies.get('token');
+    setLoading(true);
     fetch(`https://api.reykez.pl/api/memes/memes/${meme.id}`, {
       method: 'PATCH',
       crossDomain: true,
@@ -72,6 +73,7 @@ function Sort(texts) {
       } else {
         toast.error('Meme was not sorted, please contact support');
       }
+      setLoading(false);
       setFormSubmitted(true);
     });
   }

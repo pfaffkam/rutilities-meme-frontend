@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import RegistrationForm from './RegistrationForm';
 import PasswordResetForm from './PasswordResetForm';
 import withLanguage from '../../HOC/withLanguage';
+import useAuth from '../../../hooks/useAuth';
 
 const LoginForm = (props) => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
@@ -12,6 +13,7 @@ const LoginForm = (props) => {
   const [password, setPassword] = useState('passwd');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,9 +26,11 @@ const LoginForm = (props) => {
       if (!response.ok) {
         throw new Error('login error, correct the data');
       }
-      const { token } = await response.json();
+      const { token, user } = await response.json();
+      const roles = user?.roles;
+      setAuth({ email, password, roles });
       Cookies.set('token', token);
-      navigate('/sort');
+      navigate('/home');
     } catch (error) {
       setError(error.message);
     }
@@ -42,7 +46,7 @@ const LoginForm = (props) => {
         <form className="md:absolute bg-gray-700 rounded-lg p-4" onSubmit={handleSubmit}>
           {error && <p className="text-red-500">{error}</p>}
           <label>
-            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" placeholder=" Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input className="mt-4 w-full max-w-[50vw] rounded focus:border-gray-600" autoComplete="username" placeholder="Nick or Email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
           </label>
           <br />
           <label>
