@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import RegistrationForm from './RegistrationForm';
 import PasswordResetForm from './PasswordResetForm';
+import withLanguage from '../../HOC/withLanguage';
 import useAuth from '../../../hooks/useAuth';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
   const [email, setEmail] = useState('username@example.com');
@@ -53,14 +54,14 @@ const LoginForm = () => {
           </label>
           <br />
           <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
-            Log in
+            {props.texts.logIn}
           </button>
           <div className="flex justify-between w-full">
             <div className="text-gray-400 mr-8" onClick={() => setShowPasswordReset(true)}>
-              Forget password?
+              {props.texts.forgetPassword}
             </div>
             <div className="text-white" onClick={() => setShowRegistration(true)}>
-              Register
+              {props.texts.register}
             </div>
           </div>
         </form>
@@ -69,4 +70,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default withLanguage(LoginForm);
