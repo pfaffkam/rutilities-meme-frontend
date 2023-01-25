@@ -14,8 +14,8 @@ function Header() {
   return (
     <div>
       <nav className="hidden md:flex bg-gray-800 items-center justify-between mx-auto md:flex-row md:justify-start md:items-center">
-        <div className="flex-1 flex items-center">
-          <Link to="/sort">
+        <div className="flex-1 flex items-center justify-between">
+          <Link to="/home">
             <img className="h-16 w-32" src={logo} alt="logo meme website" />
           </Link>
           <button className="ml-24 hidden md:flex" onClick={() => setShowQRCode(!showQRCode)}>
@@ -23,7 +23,8 @@ function Header() {
             {showQRCode && <QRCodeGenerator />}
           </button>
         </div>
-        <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
+        <NavItem to="/sort" text="Sort memes" icon={faSortAmountAsc} />
+        <NavItem to="/home" text="Browsing memes" icon={faRandom} />
       </nav>
 
       <div className="md:hidden fixed">
@@ -31,7 +32,8 @@ function Header() {
         {isOpen && (
           <header className="flex items-center md:block rounded-lg justify-end max-h-full flex-nowrap bg-gray-800 ">
             <div className="flex flex-col">
-              <NavItem to="/sort" text="Sortowanie memów" icon={faSortAmountAsc} />
+              <NavItem to="/sort" text="Sort memes" icon={faSortAmountAsc} />
+              <NavItem to="/home" text="Browsing memes" icon={faRandom} />
             </div>
           </header>
         )}

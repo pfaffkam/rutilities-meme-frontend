@@ -7,18 +7,20 @@ import LoginForm from './Pages/Login/LoginForm';
 import PrivateRoute from './Pages/Login/PrivateRoute';
 import Unauthorized from './Unauthorized';
 import Missing from './Missing';
+import BrowsingMemes from './Pages/Home/BrowsingMemes';
 
 function App() {
   return (
-    <div className="bg-gray-600 h-screen w-screen">
+    <div className="bg-gray-600 h-screen w-auto">
       <Router>
         <Header />
         <Routes>
+          <Route path="home" default element={<BrowsingMemes />} />
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<Missing />} />
           <Route path="login" element={<LoginForm />} />
           <Route
-            path="/sort"
+            path="sort"
             element={
               <PrivateRoute>
                 <Sort />
