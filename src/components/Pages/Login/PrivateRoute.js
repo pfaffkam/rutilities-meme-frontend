@@ -1,18 +1,11 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
-const PrivateRoute = ({ children }) => {
-  const navigate = useNavigate();
-  const hasToken = !!Cookies.get('token');
+const PrivateRoute = ({ allowedRoles }) => {
+  const { auth } = useAuth();
+  const location = useLocation();
 
-  useEffect(() => {
-    if (!hasToken) {
-      navigate('/unauthorized');
-    }
-  }, [hasToken]);
-
-  return hasToken ? children : null;
+  return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? <Outlet /> : auth?.email ? <Navigate to="/unauthorized" state={{ from: location }} replace /> : <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 export default PrivateRoute;
