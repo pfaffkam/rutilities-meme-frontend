@@ -13,7 +13,7 @@ const withLanguage = (WrappedComponent) => {
         password: 'Password',
         confirmPassword: 'Confirm password',
         register: 'Register',
-        back: 'Backt to login form',
+        back: 'Back to login form',
         logIn: 'Log in',
         remindPassword: 'Remind password',
         sendPassword: 'Send password reset link',

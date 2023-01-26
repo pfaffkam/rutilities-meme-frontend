@@ -16,13 +16,14 @@ const ROLES = {
 
 function App() {
   return (
-    <div className="bg-gray-600 h-screen w-screen">
+    <div className="bg-gray-600 h-screen w-screen scrollbar overflow-auto">
       <Header />
       <Routes>
         {/* Without roles */}
         <Route path="login" element={<LoginForm />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Missing />} />
+        <Route path="home" element={<BrowsingMemes />} />
         {/*Role user*/}
         <Route element={<PrivateRoute allowedRoles={ROLES.User} />}>
           <Route path="sort" element={<Sort />} />
