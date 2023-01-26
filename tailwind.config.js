@@ -3,9 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   variants: {
     width: ['responsive', 'hover', 'focus'],
+    scrollbar: ['rounded'],
     extend: {}
   },
-  plugins: [require('tailwindcss-invalid-variant-plugin')],
+  plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
   theme: {
     minWidth: {
       400: '400px'

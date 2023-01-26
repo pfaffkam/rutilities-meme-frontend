@@ -42,8 +42,8 @@ function Form({ props }) {
         handleChange={handleChange}
         fieldName="isNsfw"
         idValueDictionary={[
-          { id: 'sfw', value: true, text: texts.texts.sfw },
-          { id: 'nsfw', value: false, text: texts.texts.nsfw }
+          { id: 'sfw', value: true, text: texts.sfw },
+          { id: 'nsfw', value: false, text: texts.nsfw }
         ]}
       />
       <BooleanChooseField
@@ -52,8 +52,8 @@ function Form({ props }) {
         handleChange={handleChange}
         fieldName="isUncropped"
         idValueDictionary={[
-          { id: 'cropped', value: true, text: texts.texts.cropped },
-          { id: 'uncropped', value: false, text: texts.texts.unCropped }
+          { id: 'cropped', value: true, text: texts.cropped },
+          { id: 'uncropped', value: false, text: texts.unCropped }
         ]}
       />
       <BooleanChooseField
@@ -62,12 +62,12 @@ function Form({ props }) {
         handleChange={handleChange}
         fieldName="isMeme"
         idValueDictionary={[
-          { id: 'meme', value: true, text: texts.texts.meme },
-          { id: 'notmeme', value: false, text: texts.texts.notMeme }
+          { id: 'meme', value: true, text: texts.meme },
+          { id: 'notmeme', value: false, text: texts.notMeme }
         ]}
       />
       <button type="submit" disabled={hasEmptyFields} className="flex mt-3 mb-24 bg-gray-300 hover:bg-gray-400 disabled:opacity-25 text-gray-800 font-bold py-2 px-4 rounded-full">
-        {texts.texts.sort}
+        {texts.sort}
       </button>
     </form>
   );

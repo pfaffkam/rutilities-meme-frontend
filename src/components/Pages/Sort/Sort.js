@@ -8,7 +8,7 @@ import { PacmanLoader } from 'react-spinners';
 import useFetch from '../../../hooks/useFetch';
 import withLanguage from '../../HOC/withLanguage';
 
-function Sort(texts) {
+function Sort({ texts }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ function Sort(texts) {
   });
 
   // formSubmited here as the second argument and useFetch custom hook gets a signal when the form is submitted fetches the data again
-  const meme = useFetch('https://api.reykez.pl/api/memes/memes/random', formSubmitted)?.data;
+  const meme = useFetch(`${process.env.REACT_APP_API_BASE_URL}memes/memes/random`, formSubmitted)?.data;
 
   function handleChange(event) {
     const fieldName = event.target.name;
@@ -57,7 +57,7 @@ function Sort(texts) {
     event.preventDefault();
     const token = Cookies.get('token');
     setLoading(true);
-    fetch(`https://api.reykez.pl/api/memes/memes/${meme.id}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}memes/memes/${meme.id}`, {
       method: 'PATCH',
       crossDomain: true,
       headers: {
@@ -69,9 +69,9 @@ function Sort(texts) {
       body: JSON.stringify(form)
     }).then((response) => {
       if (response.status === 200) {
-        toast.success('Meme has been sorted!');
+        toast.success(`${texts.notificationToastSuccesSortMeme}`);
       } else {
-        toast.error('Meme was not sorted, please contact support');
+        toast.error(`${texts.notificationToastErrorSortMeme}`);
       }
       setLoading(false);
       setFormSubmitted(true);
@@ -81,7 +81,7 @@ function Sort(texts) {
   return (
     <main>
       <div className="flex pt-20 justify-center flex-col items-center border shadow-md md:flex-row min-h-[85vh] border-gray-700 bg-gray-700">
-        {loading ? <PacmanLoader color="orange" /> : <RandomMeme randomMeme={meme} />}
+        {loading ? <PacmanLoader color="orange" /> : <RandomMeme texts={texts} randomMeme={meme} />}
         <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={false} limit={1} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
         {isError || (
           <Form

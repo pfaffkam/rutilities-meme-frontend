@@ -5,8 +5,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import photoError from '../../../assets/error.png';
 import { FadeLoader } from 'react-spinners';
 import { TfiArrowUp } from 'react-icons/tfi';
+import withLanguage from '../../HOC/withLanguage';
 
-function BrowsingMemes() {
+function BrowsingMemes({ texts }) {
   const [limit, setLimit] = useState(10);
   const [ratings, setRatings] = useState({});
   const [showArrow, setShowArrow] = useState(false);
@@ -14,14 +15,14 @@ function BrowsingMemes() {
   const loadMoreMemes = () => {
     setLimit(limit + 5);
   };
-  const memeColections = useFetch(`https://api.reykez.pl/api/memes/memes?page=1&limit=${limit}`, limit)?.data?._embedded?.items;
+  const memeColections = useFetch(`${process.env.REACT_APP_API_BASE_URL}memes/memes?page=1&limit=${limit}`, limit)?.data?._embedded?.items;
 
   function handleVoice(memeId, isLike) {
     setRatings((prevRatings) => ({
       ...prevRatings,
       [memeId]: isLike ? (prevRatings[memeId] || 0) + 1 : (prevRatings[memeId] || 0) - 1
     }));
-    toast.success(isLike ? 'You like it' : "You don't like it", { autoClose: 1000 });
+    toast.success(isLike ? `${texts.notificationToastSuccesLike}` : `${texts.notificationToastSuccesDisLike}`, { autoClose: 1000 });
     //TODO tu request do API
   }
 
@@ -41,9 +42,9 @@ function BrowsingMemes() {
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
+  console.log(window.scrollY);
   if (!memeColections) {
-    toast.warn('Oops we have a problem, no meme available, please contact support', { autoClose: 5000 });
+    toast.warn(`${texts.notificationToastWarn}`, { autoClose: 5000 });
 
     return (
       <div className="flex pt-20 justify-center items-center border shadow-md border-gray-700 bg-gray-700">
@@ -54,7 +55,7 @@ function BrowsingMemes() {
   }
 
   return (
-    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className=" bg-gray-700 no-scrollbar shadow-lg flex flex-col justify-center items-center ">
+    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className="bg-gray-700 shadow-lg flex flex-col justify-center items-center ">
       {memeColections?.map((meme) => (
         <div key={meme.id}>
           <div className="m-2 bg-gray-400 rounded-lg shadow-lg">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 md:rounded border-4" src={meme.url} alt="random meme" />}</div>
@@ -81,4 +82,4 @@ function BrowsingMemes() {
   );
 }
 
-export default BrowsingMemes;
+export default withLanguage(BrowsingMemes);

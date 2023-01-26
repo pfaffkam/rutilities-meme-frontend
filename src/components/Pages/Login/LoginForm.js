@@ -6,7 +6,7 @@ import PasswordResetForm from './PasswordResetForm';
 import withLanguage from '../../HOC/withLanguage';
 import useAuth from '../../../hooks/useAuth';
 
-const LoginForm = (props) => {
+const LoginForm = ({ texts }) => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [showRegistration, setShowRegistration] = useState(false);
   const [email, setEmail] = useState('username@example.com');
@@ -18,7 +18,7 @@ const LoginForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('https://api.reykez.pl/api/security/token', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}security/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -54,14 +54,14 @@ const LoginForm = (props) => {
           </label>
           <br />
           <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
-            {props.texts.logIn}
+            {texts.logIn}
           </button>
           <div className="flex justify-between w-full">
             <div className="text-gray-400 mr-8" onClick={() => setShowPasswordReset(true)}>
-              {props.texts.forgetPassword}
+              {texts.forgetPassword}
             </div>
             <div className="text-white" onClick={() => setShowRegistration(true)}>
-              {props.texts.register}
+              {texts.register}
             </div>
           </div>
         </form>

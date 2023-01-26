@@ -1,31 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar::-webkit-scrollbar {
-    width: 10px;
-    height: 30px;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 20vh;
-    background: #64748b;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #ea580c;
-    border-radius: 20vh;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #e9773a;
-  }
-}
