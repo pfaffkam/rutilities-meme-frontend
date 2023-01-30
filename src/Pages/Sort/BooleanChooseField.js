@@ -1,4 +1,4 @@
-function BooleanChooseField({ fieldName, idValueDictionary, handleChange, form, texts }) {
+export function BooleanChooseField({ fieldName, idValueDictionary, handleChange, form, texts }) {
   return (
     <ul className="flex gap-4 md:gap-8 w-full ">
       {idValueDictionary.map((option, i) => {
@@ -18,5 +18,3 @@ function BooleanChooseField({ fieldName, idValueDictionary, handleChange, form, 
     </ul>
   );
 }
-
-export default BooleanChooseField;

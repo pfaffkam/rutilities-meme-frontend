@@ -1,6 +1,6 @@
-import useFetch from '../../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 
-const Type = ({ handleChange, reference, texts }) => {
+export const Type = ({ handleChange, reference, texts }) => {
   const types = useFetch(`${process.env.REACT_APP_API_BASE_URL}memes/meme-types`).data?._embedded?.items;
 
   return (
@@ -18,5 +18,3 @@ const Type = ({ handleChange, reference, texts }) => {
     </select>
   );
 };
-
-export default Type;

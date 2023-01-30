@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QRCode from 'qrcode.react';
 import { useLocation } from 'react-router-dom';
 
-function QRCodeGenerator() {
+export function QRCodeGenerator() {
   const location = useLocation();
   const [qrValue, setQrValue] = useState('');
 
@@ -16,5 +16,3 @@ function QRCodeGenerator() {
     </div>
   );
 }
-
-export default QRCodeGenerator;

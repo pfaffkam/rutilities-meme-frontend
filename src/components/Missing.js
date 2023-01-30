@@ -1,6 +1,6 @@
 import caveman from '../assets/caveman-error.gif';
 import { Link } from 'react-router-dom';
-import withLanguage from './HOC/withLanguage';
+import { withLanguage } from './HOC/withLanguage';
 
 function Missing({ texts }) {
   return (

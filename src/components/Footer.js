@@ -1,7 +1,7 @@
 import { faTwitter, faGithub, faFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="relative right-0 bottom-0 left-0 w-auto pt-2 bg-gray-600 flex justify-center">
       <FooterIcon icon={faYoutube} reference={'https://youtube.com/'} txt={'Youtube'} value="[#ff0000]" />
@@ -24,5 +24,3 @@ function FooterIcon({ icon, reference, txt, value }) {
     </button>
   );
 }
-
-export default Footer;

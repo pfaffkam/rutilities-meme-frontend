@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useFetch from '../../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import { toast, ToastContainer } from 'react-toastify';
-import photoError from '../../../assets/error.png';
+import photoError from '../../assets/error.png';
 import { FadeLoader } from 'react-spinners';
 import { TfiArrowUp } from 'react-icons/tfi';
-import withLanguage from '../../HOC/withLanguage';
+import { withLanguage } from '../../components/HOC/withLanguage';
+import { useAuth } from '../../hooks/useAuth';
 
 function BrowsingMemes({ texts }) {
   const [limit, setLimit] = useState(10);
   const [ratings, setRatings] = useState({});
   const [showArrow, setShowArrow] = useState(false);
+  const { auth } = useAuth();
 
   const loadMoreMemes = () => {
     setLimit(limit + 5);
@@ -18,6 +20,11 @@ function BrowsingMemes({ texts }) {
   const memeColections = useFetch(`${process.env.REACT_APP_API_BASE_URL}memes/memes?page=1&limit=${limit}`, limit)?.data?._embedded?.items;
 
   function handleVoice(memeId, isLike) {
+    if (!auth.email) {
+      toast.error(`${texts.logIn}`, { autoClose: 1000 });
+      return;
+    }
+
     setRatings((prevRatings) => ({
       ...prevRatings,
       [memeId]: isLike ? (prevRatings[memeId] || 0) + 1 : (prevRatings[memeId] || 0) - 1
@@ -42,7 +49,7 @@ function BrowsingMemes({ texts }) {
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  console.log(window.scrollY);
+
   if (!memeColections) {
     toast.warn(`${texts.notificationToastWarn}`, { autoClose: 5000 });
 
@@ -55,10 +62,10 @@ function BrowsingMemes({ texts }) {
   }
 
   return (
-    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className="bg-gray-700 shadow-lg flex flex-col justify-center items-center ">
+    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className=" bg-gray-700 shadow-lg flex flex-col justify-center items-center ">
       {memeColections?.map((meme) => (
-        <div key={meme.id}>
-          <div className="m-2 bg-gray-400 rounded-lg shadow-lg">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 mb-12 md:rounded border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-lg max-w-[70vw] min-h-0 max-h-[70vh] min-w-0 md:rounded border-4" src={meme.url} alt="random meme" />}</div>
+        <div className="w-[60vw] md:w-[40vw] px-4 bg-black" key={meme.id}>
+          <div className="m-2 flex justify-center items-center rounded-lg w-full shadow-lg ">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-lg mb-12 w-full md:rounded object-contain max-h-[70vh] border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-lg  w-full object-contain mr-3 md:rounded max-h-[70vh] border-4" src={meme.url} alt="random meme" />}</div>
           <div className="flex mb-8 mx-2">
             <button onClick={() => handleVoice(meme.id, true)} className="hover:bg-green-400 border-b-4 border-green-800 hover:border-green-500 px-2 font-bold bg-green-700 text-white rounded shadow-lg">
               +
@@ -66,7 +73,7 @@ function BrowsingMemes({ texts }) {
             <button onClick={() => handleVoice(meme.id, false)} className="mx-1 hover:bg-red-400 border-b-4 border-red-800 hover:border-red-500 px-[10px] font-bold bg-red-700 text-white rounded shadow-lg">
               -
             </button>
-            <p className="px-[10px] bg-black text-white font-bold rounded"> {ratings[meme.id] || 0}</p>
+            <p className="px-[10px] bg-gray-800 pt-1 text-white font-bold rounded"> {ratings[meme.id] || 0}</p>
           </div>
         </div>
       ))}

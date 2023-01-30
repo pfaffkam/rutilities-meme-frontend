@@ -4,12 +4,12 @@ import { useState, useContext } from 'react';
 import { Spin as Hamburger } from 'hamburger-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faRandom, faSearch, faSortAmountAsc, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { LanguageContext } from './context/LanguageProvider';
-import withLanguage from './HOC/withLanguage';
-import QRCodeGenerator from './QRCodeGenerator';
+import { LanguageContext } from '../context/LanguageProvider';
+import { withLanguage } from '../components/HOC/withLanguage';
+import { QRCodeGenerator } from './QRCodeGenerator';
 import { BiQr } from 'react-icons/bi';
 
-function Header({texts}) {
+function Header({ texts }) {
   const [isOpen, setOpen] = useState(false);
   const { language, setLanguage } = useContext(LanguageContext);
   const [showQRCode, setShowQRCode] = useState(false);
@@ -26,7 +26,7 @@ function Header({texts}) {
             {showQRCode && <QRCodeGenerator />}
           </button>
         </div>
-        <NavItem to="/home" text={texts.browse} icon={faSortAmountAsc} />
+        <NavItem to="/home" text={texts.browse} icon={faRandom} />
         <NavItem to="/sort" text={texts.sortMemes} icon={faSortAmountAsc} />
         <button className="mt-2 mr-6 text-orange-500 flex flex-col" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>
           {<FontAwesomeIcon size="lg" icon={faGlobe} />}
@@ -40,7 +40,7 @@ function Header({texts}) {
             <header className="flex items-center md:block rounded-lg justify-end max-h-full flex-nowrap bg-gray-800 ">
               <div className="flex flex-col">
                 <NavItem to="/sort" text={texts.sortMemes} icon={faSortAmountAsc} />
-                <NavItem to="/home" text={texts.browse} icon={faSortAmountAsc} />
+                <NavItem to="/home" text={texts.browse} icon={faRandom} />
               </div>
             </header>
             <button className=" absolute top-3 left-14 text-orange-500" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>

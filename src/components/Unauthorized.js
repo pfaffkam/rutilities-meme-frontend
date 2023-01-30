@@ -1,6 +1,6 @@
 import unauthorizedPhoto from '../assets/unauthorized-error.png';
 import { Link } from 'react-router-dom';
-import withLanguage from './HOC/withLanguage';
+import { withLanguage } from './HOC/withLanguage';
 
 function Unauthorized({ texts }) {
   return (

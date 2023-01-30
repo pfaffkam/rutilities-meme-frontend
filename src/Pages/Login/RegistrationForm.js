@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import withLanguage from '../../HOC/withLanguage';
+import { withLanguage } from '../../components/HOC/withLanguage';
 
 const RegistrationForm = ({ texts, setShowRegistration }) => {
   const [user, setUser] = useState('');
@@ -68,7 +68,7 @@ const RegistrationForm = ({ texts, setShowRegistration }) => {
         </label>
       </div>
 
-      <button className="mt-4 p-2 bg-red-600 w-full disabled:opacity-60 max-w-[50vw] text-white rounded-lg" type="submit" disabled={!user || !email || !password || !confirmPassword}>
+      <button className="mt-4 p-2 bg-red-600 w-full disabled:opacity-60 max-w-[50vw] text-white rounded-lg" type="submit" disabled={!email || !password || !confirmPassword}>
         {texts.register}
       </button>
       <button type="button" className="text-white mt-2 cursor-pointer" onClick={() => setShowRegistration(false)}>

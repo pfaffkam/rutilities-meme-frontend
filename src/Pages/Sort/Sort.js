@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Form from './Form';
+import { Form } from './Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RandomMeme from './RandomMeme';
+import { RandomMeme } from './RandomMeme';
 import Cookies from 'js-cookie';
 import { PacmanLoader } from 'react-spinners';
-import useFetch from '../../../hooks/useFetch';
-import withLanguage from '../../HOC/withLanguage';
+import useFetch from '../../hooks/useFetch';
+import { withLanguage } from '../../components/HOC/withLanguage';
 
 function Sort({ texts }) {
   const [formSubmitted, setFormSubmitted] = useState(false);

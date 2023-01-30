@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import Category from './Category';
-import Type from './Type';
-import BooleanChooseField from './BooleanChooseField';
+import { Category } from './Category';
+import { Type } from './Type';
+import { BooleanChooseField } from './BooleanChooseField';
 
-function Form({ props }) {
+export function Form({ props }) {
   const { texts, form, formErrors, formSubmitted, setForm, setFormErrors, setFormSubmitted, handleSubmit, handleChange } = props;
 
   const categorySelectRef = useRef();
@@ -72,5 +72,3 @@ function Form({ props }) {
     </form>
   );
 }
-
-export default Form;

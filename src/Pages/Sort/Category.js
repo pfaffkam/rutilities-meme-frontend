@@ -1,6 +1,6 @@
-import useFetch from '../../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 
-const Category = ({ handleChange, reference, texts }) => {
+export const Category = ({ handleChange, reference, texts }) => {
   const categories = useFetch(`${process.env.REACT_APP_API_BASE_URL}memes/meme-categories`).data?._embedded?.items;
 
   return (
@@ -18,5 +18,3 @@ const Category = ({ handleChange, reference, texts }) => {
     </div>
   );
 };
-
-export default Category;

@@ -1,5 +1,4 @@
-import React from 'react';
-import withLanguage from '../../HOC/withLanguage';
+import { withLanguage } from '../../components/HOC/withLanguage';
 
 function PasswordResetForm({ texts, setShowPasswordReset }) {
   return (

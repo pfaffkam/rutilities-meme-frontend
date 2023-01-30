@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import RegistrationForm from './RegistrationForm';
 import PasswordResetForm from './PasswordResetForm';
-import withLanguage from '../../HOC/withLanguage';
-import useAuth from '../../../hooks/useAuth';
+import { withLanguage } from '../../components/HOC/withLanguage';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginForm = ({ texts }) => {
   const [showPasswordReset, setShowPasswordReset] = useState(false);
@@ -27,8 +27,10 @@ const LoginForm = ({ texts }) => {
         throw new Error('login error, correct the data');
       }
       const { token, user } = await response.json();
+      const userNick = user.displayName;
       const roles = user?.roles;
-      setAuth({ email, password, roles });
+      const userId = user?.id;
+      setAuth({ email, password, roles, userId, userNick });
       Cookies.set('token', token);
       navigate('/home');
     } catch (error) {
@@ -53,14 +55,14 @@ const LoginForm = ({ texts }) => {
             <input className="mt-4 w-full max-w-[50vw] rounded" autoComplete="current-password" placeholder=" Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
           </label>
           <br />
-          <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg" type="submit">
+          <button className="mt-4 p-2 bg-red-700 w-full max-w-[50vw] text-white rounded-lg disabled:opacity-60" type="submit" disabled={!email || !password}>
             {texts.logIn}
           </button>
           <div className="flex justify-between w-full">
-            <div className="text-gray-400 mr-8" onClick={() => setShowPasswordReset(true)}>
+            <div className="text-gray-400 mr-8 cursor-pointer" onClick={() => setShowPasswordReset(true)}>
               {texts.forgetPassword}
             </div>
-            <div className="text-white" onClick={() => setShowRegistration(true)}>
+            <div className="text-white cursor-pointer" onClick={() => setShowRegistration(true)}>
               {texts.register}
             </div>
           </div>
