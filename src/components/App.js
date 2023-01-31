@@ -7,7 +7,7 @@ import Unauthorized from './Unauthorized';
 import Missing from './Missing';
 import BrowsingMemes from '../Pages/Home/BrowsingMemes';
 import { MainLayout } from '../Layouts//MainLayout';
-console.log('xd');
+
 const ROLES = {
   User: 'ROLE_USER',
   Admin: 'ROLE_SUPER_USER'

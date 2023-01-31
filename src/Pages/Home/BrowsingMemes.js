@@ -5,13 +5,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import photoError from '../../assets/error.png';
 import { FadeLoader } from 'react-spinners';
 import { TfiArrowUp } from 'react-icons/tfi';
+import { BiCommentAdd } from 'react-icons/bi';
 import { withLanguage } from '../../components/HOC/withLanguage';
+import Comments from './Comments';
 import { useAuth } from '../../hooks/useAuth';
 
 function BrowsingMemes({ texts }) {
   const [limit, setLimit] = useState(10);
   const [ratings, setRatings] = useState({});
   const [showArrow, setShowArrow] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const { auth } = useAuth();
 
   const loadMoreMemes = () => {
@@ -41,6 +44,9 @@ function BrowsingMemes({ texts }) {
     }
   };
 
+  const handleComments = (memeId) => {
+    setShowComments(memeId);
+  };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -62,9 +68,9 @@ function BrowsingMemes({ texts }) {
   }
 
   return (
-    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className=" bg-gray-700 shadow-lg flex flex-col justify-center items-center ">
+    <InfiniteScroll dataLength={memeColections.length} hasMore={true} next={loadMoreMemes} scrollThreshold={0.89} loader={<FadeLoader className="text-red-600 mb-4" color="orange" />} className="scrollbar-none bg-gray-700 shadow-lg flex flex-col justify-center items-center ">
       {memeColections?.map((meme) => (
-        <div className="w-[60vw] md:w-[40vw] px-4 bg-black" key={meme.id}>
+        <div className="w-full md:w-[40vw] px-4 bg-black" key={meme.id}>
           <div className="m-2 flex justify-center items-center rounded-lg w-full shadow-lg ">{meme.url.endsWith('.mp4') || meme.url.endsWith('.avi') ? <video className="rounded-lg mb-12 w-full md:rounded object-contain max-h-[70vh] border-4" src={meme.url} alt="random meme video" controls></video> : <img loading="lazy" className="rounded-lg  w-full object-contain mr-3 md:rounded max-h-[70vh] border-4" src={meme.url} alt="random meme" />}</div>
           <div className="flex mb-8 mx-2">
             <button onClick={() => handleVoice(meme.id, true)} className="hover:bg-green-400 border-b-4 border-green-800 hover:border-green-500 px-2 font-bold bg-green-700 text-white rounded shadow-lg">
@@ -74,7 +80,13 @@ function BrowsingMemes({ texts }) {
               -
             </button>
             <p className="px-[10px] bg-gray-800 pt-1 text-white font-bold rounded"> {ratings[meme.id] || 0}</p>
+            <div className=" border-b-4 border-orange-800 px-2 ml-1 font-bold bg-orange-700 text-black rounded shadow-lg">
+              <button onClick={() => handleComments(meme.id)}>
+                <BiCommentAdd className="mt-2" />
+              </button>
+            </div>
           </div>
+          {showComments === meme.id && <Comments />}
         </div>
       ))}
       {showArrow && (

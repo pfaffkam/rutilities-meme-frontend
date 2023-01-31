@@ -3,16 +3,26 @@ import logo from '../assets/logo.png';
 import { useState, useContext } from 'react';
 import { Spin as Hamburger } from 'hamburger-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faRandom, faSearch, faSortAmountAsc, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faRandom, faSearch, faSortAmountAsc, faGlobe, faUser } from '@fortawesome/free-solid-svg-icons';
 import { LanguageContext } from '../context/LanguageProvider';
 import { withLanguage } from '../components/HOC/withLanguage';
 import { QRCodeGenerator } from './QRCodeGenerator';
 import { BiQr } from 'react-icons/bi';
+import { useAuth } from '../hooks/useAuth';
+import { useEffect } from 'react';
 
 function Header({ texts }) {
   const [isOpen, setOpen] = useState(false);
   const { language, setLanguage } = useContext(LanguageContext);
   const [showQRCode, setShowQRCode] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const { auth } = useAuth();
+
+  useEffect(() => {
+    if (!auth.email) {
+      setShowLogin(true);
+    } else setShowLogin(false);
+  }, [auth]);
 
   return (
     <div>
@@ -28,12 +38,13 @@ function Header({ texts }) {
         </div>
         <NavItem to="/home" text={texts.browse} icon={faRandom} />
         <NavItem to="/sort" text={texts.sortMemes} icon={faSortAmountAsc} />
+        {showLogin && <NavItem to="/login" text={texts.logIn} icon={faUser} />}
         <button className="mt-2 mr-6 text-orange-500 flex flex-col" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>
           {<FontAwesomeIcon size="lg" icon={faGlobe} />}
           {language.toUpperCase()}
         </button>
       </nav>
-      <div className="md:hidden fixed">
+      <div className="md:hidden fixed bg-black rounded-lg">
         <Hamburger toggled={isOpen} toggle={setOpen} color="#f97316" duration={0.6} label="Menu" />
         {isOpen && (
           <>
@@ -46,6 +57,11 @@ function Header({ texts }) {
             <button className=" absolute top-3 left-14 text-orange-500" onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}>
               {<FontAwesomeIcon size="lg" icon={faGlobe} />}
             </button>
+            {showLogin && (
+              <Link to="/login" className="absolute top-3 left-24 text-orange-500" icon={faUser}>
+                <FontAwesomeIcon size="lg" icon={faUser} />
+              </Link>
+            )}
           </>
         )}
       </div>

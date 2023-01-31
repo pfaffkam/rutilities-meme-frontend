@@ -22,13 +22,11 @@ const RegistrationForm = ({ texts, setShowRegistration }) => {
       return;
     }
     try {
-      console.log(user, email, password);
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}users/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user, email, password })
       });
-      console.log(JSON.stringify({ user, email, password }));
       if (!response.ok) {
         throw new Error('Fail register try again');
       }
