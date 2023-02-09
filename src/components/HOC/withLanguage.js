@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { LanguageContext } from '../context/LanguageProvider';
+import { LanguageContext } from '../../context/LanguageProvider';
 
-const withLanguage = (WrappedComponent) => {
+export const withLanguage = (WrappedComponent) => {
   return (props) => {
     const { language } = useContext(LanguageContext);
 
@@ -13,7 +13,7 @@ const withLanguage = (WrappedComponent) => {
         password: 'Password',
         confirmPassword: 'Confirm password',
         register: 'Register',
-        back: 'Backt to login form',
+        back: 'Back to login form',
         logIn: 'Log in',
         remindPassword: 'Remind password',
         sendPassword: 'Send password reset link',
@@ -30,7 +30,16 @@ const withLanguage = (WrappedComponent) => {
         cropped: 'Cropped',
         unCropped: 'Uncropped',
         meme: 'Meme',
-        notMeme: 'Not Meme'
+        notMeme: 'Not Meme',
+        notificationToastWarn: 'Oops we have a problem, no meme available, please contact support',
+        notificationToastSuccesLike: 'You like it',
+        notificationToastSuccesDisLike: "You don't like it",
+        notificationToastSuccesSortMeme: 'Meme has been sorted!',
+        notificationToastErrorSortMeme: 'Meme was not sorted, please contact support',
+        addComment: 'Add comment',
+        comments: 'Comments',
+        errorMessageComment: 'Comment cannot be empty!',
+        userMessageComment: 'You must be logged in to add a comment'
       },
       pl: {
         sortMemes: 'Sortuj memy',
@@ -56,7 +65,16 @@ const withLanguage = (WrappedComponent) => {
         cropped: 'Przycięty',
         unCropped: 'Nieprzycięty',
         meme: 'Mem',
-        notMeme: 'to nie Mem'
+        notMeme: 'to nie Mem',
+        notificationToastWarn: 'Ups, mamy problem, mem nie jest dostępny, skontaktuj się z pomocą techniczną',
+        notificationToastSuccesLike: 'Polubiłeś mema',
+        notificationToastSuccesDisLike: 'Nie lubisz tego mema',
+        notificationToastSuccesSortMeme: 'Mem został posortowany!',
+        notificationToastErrorSortMeme: 'Mem nie został posortowany, skontaktuj się z pomocą techniczną',
+        addComment: 'Dodaj komentarz',
+        comments: 'Komenatrze',
+        errorMessageComment: 'Komentarz nie może być pusty!',
+        userMessageComment: 'Musisz być zalogowany, żeby dodać komentarz'
       }
     };
 
@@ -67,4 +85,3 @@ const withLanguage = (WrappedComponent) => {
     );
   };
 };
-export default withLanguage;
